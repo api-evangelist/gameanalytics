@@ -1,0 +1,129 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: GameAnalytics
+providerId: gameanalytics
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Analytics
+- Games
+- Gaming
+- Player Behavior
+- Retention
+- Monetization
+- Plans
+description: >-
+  GameAnalytics offers a genuinely free core analytics tier - unlimited events,
+  dashboards, retention, funnels, and monetization/ads reporting - that made it
+  popular with indie and mobile studios. Programmatic access to raw data and the
+  reporting APIs is delivered through the paid PipelineIQ product line (Metrics
+  API and Data Export), with Enterprise agreements for larger studios. The
+  Collection API is available on all tiers for sending events; the Metrics API,
+  Organization API, and raw Data Export require a PipelineIQ / paid plan.
+notes: >-
+  GameAnalytics does not publish fixed public per-seat or per-event list prices
+  for PipelineIQ; paid and Enterprise tiers are quoted by sales based on data
+  volume and features. Verify current packaging on the GameAnalytics pricing and
+  PipelineIQ pages during reconciliation.
+sources:
+- https://gameanalytics.com/pricing/
+- https://www.gameanalytics.com/pipelineiq
+- https://www.gameanalytics.com/pipelineiq/api-access
+- https://docs.gameanalytics.com/
+plans:
+- id: gameanalytics-free
+  name: Free
+  type: free
+  description: >-
+    Free core analytics for games - unlimited event collection, standard
+    dashboards, player behavior, retention and cohorts, progression funnels,
+    and monetization/ads reporting - with the Collection API available for
+    sending events.
+  entries:
+  - label: Event Collection
+    name: event_collection
+    type: usage
+    metric: events
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free
+    userMultiplied: false
+  - label: Dashboards and Reports
+    name: dashboards
+    type: flat
+    metric: seats
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free
+    userMultiplied: false
+  elements:
+  - name: Collection API
+    description: HMAC-signed event ingestion via /v2/{game_key}/events.
+  - name: Player Behavior and Retention
+  - name: Progression Funnels
+  - name: Monetization and Ads Analytics
+- id: gameanalytics-pipelineiq
+  name: PipelineIQ (Paid)
+  type: paid
+  description: >-
+    Programmatic data access on top of the free platform - the Metrics API for
+    aggregated reporting, the Organization API for administration, and Data
+    Export streaming of raw JSON events to the customer's own cloud. Priced by
+    data volume and enabled features; contact sales for a quote.
+  entries:
+  - label: Metrics API Access
+    name: metrics_api
+    type: usage
+    metric: queries
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  - label: Data Export Streaming
+    name: data_export
+    type: usage
+    metric: events
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Metrics API
+  - name: Organization API
+  - name: Data Export (Raw JSON to cloud)
+  - name: Historical Backfill
+- id: gameanalytics-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Volume commitments, advanced data pipelines, extended retention, dedicated
+    support, and negotiated terms for larger studios and publishers. Contact
+    GameAnalytics sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Data Volume
+  - name: Extended Retention
+  - name: Dedicated Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

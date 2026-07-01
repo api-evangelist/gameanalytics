@@ -1,0 +1,102 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: GameAnalytics
+providerId: gameanalytics
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Analytics
+- Games
+- Gaming
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of GameAnalytics spend. Core game analytics - event collection via
+  the Collection API, dashboards, retention, funnels, and monetization/ads
+  reporting - is free. Cost is incurred through the PipelineIQ product line:
+  programmatic Metrics API access, the Organization API, and raw Data Export
+  streaming of JSON events to the customer's own cloud, priced by data volume
+  and features and quoted by sales. Downstream cloud storage and warehouse costs
+  (AWS S3, Google BigQuery, Google Cloud Storage) accrue in the customer's own
+  cloud account, not on a GameAnalytics invoice.
+notes: >-
+  GameAnalytics does not publish fixed per-event or per-query list prices for
+  PipelineIQ; model spend from the negotiated contract and from the customer's
+  own cloud egress/storage/warehouse bills for Data Export. Verify packaging
+  during reconciliation.
+sources:
+- https://gameanalytics.com/pricing/
+- https://www.gameanalytics.com/pipelineiq
+- https://www.gameanalytics.com/pipelineiq/data-export
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: GameAnalytics
+serviceCategory: Analytics
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+focusColumns:
+  ServiceName: GameAnalytics
+  ServiceCategory: Analytics
+  ProviderName: GameAnalytics
+  PublisherName: GameAnalytics
+  InvoiceIssuerName: GameAnalytics
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Subscription
+meters:
+- name: collected_events
+  description: Game events ingested via the Collection API or SDKs. Free on the core platform.
+  unit: events
+  aggregation: sum
+  dimensions:
+  - organization
+  - game
+  - platform
+- name: metrics_api_queries
+  description: Aggregated metric queries against the Metrics API (PipelineIQ).
+  unit: queries
+  aggregation: sum
+  dimensions:
+  - organization
+  - game
+  - metric
+- name: exported_events
+  description: Raw JSON events streamed out via Data Export (PipelineIQ) to the customer's cloud.
+  unit: events
+  aggregation: sum
+  dimensions:
+  - organization
+  - game
+  - destination
+- name: customer_cloud_storage
+  description: Storage and warehouse cost for exported events, billed by the customer's own cloud provider (S3, BigQuery, GCS).
+  unit: gigabytes
+  aggregation: sum
+  dimensions:
+  - organization
+  - destination
+principles:
+- name: Visibility
+  description: Separate the free GameAnalytics platform usage from paid PipelineIQ contract spend and from downstream cloud storage/warehouse bills.
+- name: Allocation
+  description: Tag games/studios and Data Export destinations to internal cost centers; attribute cloud-side costs back to the exporting game.
+- name: Optimization
+  description: Stay on the free tier where dashboards suffice; scope Data Export to needed event types and destinations; batch and gzip collection traffic; right-size warehouse ingestion.
+- name: Accountability
+  description: Assign owners per game/pipeline; review PipelineIQ contract utilization and cloud egress/storage monthly against budget.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

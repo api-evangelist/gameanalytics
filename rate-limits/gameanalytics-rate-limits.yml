@@ -1,0 +1,70 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: GameAnalytics
+providerId: gameanalytics
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- Analytics
+- Games
+- Gaming
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  GameAnalytics constrains its REST surfaces primarily through payload and
+  batching limits rather than published per-minute request quotas. The
+  Collection API enforces a 1 MB maximum POST size and recommends batching
+  events and submitting roughly every 20 seconds with gzip compression. The
+  Metrics API returns aggregated data with soft real-time guarantees (new data
+  is checked hourly), which effectively bounds polling frequency. Specific
+  per-account request-per-minute limits for the Metrics and Organization APIs
+  are not publicly documented.
+notes: >-
+  Confirm current per-endpoint limits and any documented HTTP 429 behavior in
+  the GameAnalytics documentation during reconciliation; values may differ by
+  PipelineIQ tier.
+sources:
+- https://docs.gameanalytics.com/event-tracking-and-integrations/sdks-and-collection-api/api/setup/
+- https://docs.gameanalytics.com/products-and-features/pipeline-iq/metrics-api/how-to-use-the-metrics-api/
+- https://docs.gameanalytics.com/
+responseCodes:
+  throttled: 429
+limits:
+- name: Collection API POST Size
+  scope: request
+  metric: bytes
+  limit: 1048576
+  notes: Maximum 1 MB per POST to /v2/{game_key}/events; batch and gzip event payloads.
+- name: Collection API Submission Cadence
+  scope: client
+  metric: seconds
+  limit: 20
+  notes: Recommended to cache events locally and submit approximately every 20 seconds.
+- name: Metrics API Data Freshness
+  scope: account
+  metric: interval
+  limit: hourly
+  notes: New metric data is checked hourly (soft real-time), bounding useful polling frequency.
+- name: Metrics API Requests
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: Per-account request limits for the Metrics API are not publicly documented.
+- name: Organization API Requests
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: Per-account request limits for the Organization API are not publicly documented.
+policies:
+- name: Batching and Compression
+  description: Collection API clients should batch events, gzip the body, and stay under the 1 MB POST size limit.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+- name: Tiered Access
+  description: Metrics API, Organization API, and raw Data Export require a paid PipelineIQ tier; the free tier covers event collection and dashboards.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,160 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GameAnalytics REST APIs",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Key",
+      "value": "{{apiKey}}",
+      "in": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Collection",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initialize a collection session.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gameanalytics.com/v2/{{gameKey}}/init",
+            "headers": [
+              { "name": "Authorization", "value": "{{hmacSignature}}" },
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\n  \"platform\": \"ios\",\n  \"os_version\": \"ios 17.0\",\n  \"sdk_version\": \"rest api v2\"\n}"
+            }
+          },
+          "docs": "Returns a server timestamp and enabled flag. Body must be signed with an HMAC-SHA256 digest of the raw (optionally gzipped) body using the game secret key, base64-encoded, in the Authorization header."
+        },
+        {
+          "info": {
+            "name": "Submit a batch of game events.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gameanalytics.com/v2/{{gameKey}}/events",
+            "headers": [
+              { "name": "Authorization", "value": "{{hmacSignature}}" },
+              { "name": "Content-Type", "value": "application/json" },
+              { "name": "Content-Encoding", "value": "gzip" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "[\n  {\n    \"category\": \"user\",\n    \"user_id\": \"<string>\",\n    \"session_id\": \"<string>\",\n    \"client_ts\": 0\n  },\n  {\n    \"category\": \"business\",\n    \"event_id\": \"<string>\",\n    \"amount\": 99,\n    \"currency\": \"USD\"\n  }\n]"
+            }
+          },
+          "docs": "Accepts a JSON array of event objects (user, session_end, business, resource, progression, design, error, ads). Gzipped body must be HMAC-SHA256 signed with the game secret key. 1 MB POST size limit."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query an aggregated gameplay metric.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://metrics.gameanalytics.com/metrics/v1/metrics/dau",
+            "headers": [
+              { "name": "X-API-Key", "value": "{{apiKey}}" },
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\n  \"game\": 12345,\n  \"interval\": \"2026-06-01/P1W\",\n  \"granularity\": \"day\",\n  \"query\": {\n    \"type\": \"timeseries\"\n  }\n}"
+            }
+          },
+          "docs": "Returns aggregated metric data (dau, mau, retention_retro, arpu, arppu, session_length, revenue, ad_revenue) as JSON. Authenticated with X-API-Key."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Organization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all games in the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://organization.gameanalytics.com/api/v1/games",
+            "headers": [
+              { "name": "X-API-Key", "value": "{{apiKey}}" }
+            ]
+          },
+          "docs": "List all games in the organization."
+        },
+        {
+          "info": {
+            "name": "List all studios in the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://organization.gameanalytics.com/api/v1/studios",
+            "headers": [
+              { "name": "X-API-Key", "value": "{{apiKey}}" }
+            ]
+          },
+          "docs": "List all studios in the organization."
+        },
+        {
+          "info": {
+            "name": "List all users in the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://organization.gameanalytics.com/api/v1/users",
+            "headers": [
+              { "name": "X-API-Key", "value": "{{apiKey}}" }
+            ]
+          },
+          "docs": "List all users in the organization."
+        },
+        {
+          "info": {
+            "name": "Invite a user to the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://organization.gameanalytics.com/api/v1/users/invite",
+            "headers": [
+              { "name": "X-API-Key", "value": "{{apiKey}}" },
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\n  \"email\": \"teammate@example.com\"\n}"
+            }
+          },
+          "docs": "Send a user invitation to the organization."
+        }
+      ]
+    }
+  ]
+}

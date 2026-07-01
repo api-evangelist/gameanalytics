@@ -1,0 +1,81 @@
+aid: gameanalytics
+name: GameAnalytics
+review:
+  question: Does GameAnalytics expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-01'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. GameAnalytics does not document a public
+    WebSocket, SSE, or message-broker event API. Its real-time surface is a
+    data pipeline (PipelineIQ Data Export) that streams JSON events into the
+    customer's own cloud storage/warehouse rather than an event API a consumer
+    subscribes to over WebSocket or SSE, so no in-scope asynchronous protocol
+    was modeled.
+findings:
+  summary: |
+    GameAnalytics does not publish a documented public WebSocket API. All
+    documented developer surfaces are HTTPS REST: the Collection (Collector)
+    API for HMAC-signed event ingestion at api.gameanalytics.com /
+    sandbox-api.gameanalytics.com, the Metrics API for aggregated reporting at
+    metrics.gameanalytics.com, and the Organization API for administration at
+    organization.gameanalytics.com. Raw data delivery is handled by PipelineIQ
+    Data Export, which streams JSON events into the customer's own cloud (AWS
+    S3, Google BigQuery, Google Cloud Storage) as a batch/streaming pipeline,
+    not a WebSocket or SSE endpoint. No ws:// or wss:// endpoint is documented.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.gameanalytics.com/v2
+      documented: true
+    - protocol: REST
+      scheme: https
+      baseURL: https://metrics.gameanalytics.com/metrics/v1
+      documented: true
+    - protocol: REST
+      scheme: https
+      baseURL: https://organization.gameanalytics.com/api/v1
+      documented: true
+    - protocol: Data Pipeline
+      scheme: https
+      note: PipelineIQ Data Export streams JSON events into customer-owned cloud storage/warehouse. Not a subscribe-over-WebSocket event API.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in any GameAnalytics API reference as of the review date.
+  endpointsConfirmedRest:
+    - POST https://api.gameanalytics.com/v2/{game_key}/init
+    - POST https://api.gameanalytics.com/v2/{game_key}/events
+    - POST https://metrics.gameanalytics.com/metrics/v1/metrics/{metric}
+    - GET  https://organization.gameanalytics.com/api/v1/games
+    - POST https://organization.gameanalytics.com/api/v1/games
+    - GET  https://organization.gameanalytics.com/api/v1/games/{game_id}
+    - GET  https://organization.gameanalytics.com/api/v1/studios
+    - POST https://organization.gameanalytics.com/api/v1/studios
+    - GET  https://organization.gameanalytics.com/api/v1/studios/{studio_id}
+    - GET  https://organization.gameanalytics.com/api/v1/users
+    - POST https://organization.gameanalytics.com/api/v1/users/invite
+    - POST https://organization.gameanalytics.com/api/v1/users/{user_id}/replace_acl
+sources:
+  - url: https://docs.gameanalytics.com/event-tracking-and-integrations/sdks-and-collection-api/api/setup/
+    type: Documentation
+    note: Collection API setup - HTTPS-only REST with HMAC-SHA256 Authorization header; init and events routes.
+  - url: https://docs.gameanalytics.com/products-and-features/pipeline-iq/metrics-api/how-to-use-the-metrics-api/
+    type: Documentation
+    note: Metrics API - REST over HTTPS with X-API-Key header; POST metric queries returning JSON.
+  - url: https://docs.gameanalytics.com/products-and-features/pipeline-iq/organization-api/api-specification/
+    type: APIReference
+    note: Organization API - REST endpoints for games, studios, users, permissions.
+  - url: https://www.gameanalytics.com/pipelineiq/data-export
+    type: Documentation
+    note: Data Export streams JSON to the customer's own cloud; not a WebSocket/SSE consumer API.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists and no consumer-facing SSE/broker
+    event API is documented; the only asynchronous delivery is a data-export
+    pipeline into customer-owned storage, which is out of scope for AsyncAPI
+    modeling. No AsyncAPI document was created.
