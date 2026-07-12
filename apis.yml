@@ -124,6 +124,14 @@ apis:
     BigQuery, Google Cloud Storage - for use in Tableau, Looker, or Power BI. It
     is a data pipeline rather than a request/response REST API.
 common:
+- type: TrustCenter
+  url: security/gameanalytics-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/gameanalytics-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/gameanalytics-domain-security.yml
+- type: Authentication
+  url: authentication/gameanalytics-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/GameAnalytics
 - type: LinkedIn
@@ -138,6 +146,8 @@ common:
   url: rate-limits/gameanalytics-rate-limits.yml
 - type: FinOps
   url: finops/gameanalytics-finops.yml
+- url: https://www.gameanalytics.com/blog/rss.xml
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

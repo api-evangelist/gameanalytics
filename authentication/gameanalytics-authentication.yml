@@ -1,0 +1,25 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/gameanalytics-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: hmacAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: Base64-encoded HMAC-SHA256 digest of the raw (optionally gzipped) request body,
+    keyed with the game's secret key. Used by the Collection API.
+  sources:
+  - openapi/gameanalytics-openapi.yml
+- name: apiKeyHeader
+  type: apiKey
+  in: header
+  parameter: X-API-Key
+  description: API key generated in the GameAnalytics dashboard. The Metrics API uses the `X-API-Key`
+    header; the Organization API uses an equivalent API-key header.
+  sources:
+  - openapi/gameanalytics-openapi.yml
