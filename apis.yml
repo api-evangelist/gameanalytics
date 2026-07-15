@@ -124,6 +124,8 @@ apis:
     BigQuery, Google Cloud Storage - for use in Tableau, Looker, or Power BI. It
     is a data pipeline rather than a request/response REST API.
 common:
+- type: AgenticAccess
+  url: agentic-access/gameanalytics-agentic-access.yml
 - type: TrustCenter
   url: security/gameanalytics-trust-center.yml
 - type: VulnerabilityDisclosure
