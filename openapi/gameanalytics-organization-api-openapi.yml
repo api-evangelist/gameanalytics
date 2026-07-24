@@ -1,0 +1,314 @@
+openapi: 3.0.3
+info:
+  title: GameAnalytics REST APIs Collection Organization API
+  description: 'Representative OpenAPI description of the public GameAnalytics REST surfaces: the Collection (Collector) API for HMAC-signed event ingestion, the Metrics API for aggregated reporting, and the Organization API for programmatic administration of games, studios, users, and permissions. Endpoints and authentication reflect the public GameAnalytics documentation; consult the docs for the full request/response payloads, which are large and evolving.'
+  termsOfService: https://gameanalytics.com/terms/
+  contact:
+    name: GameAnalytics Support
+    url: https://gameanalytics.com/contact/
+  version: '1.0'
+servers:
+- url: https://api.gameanalytics.com
+  description: Collection API - production
+- url: https://sandbox-api.gameanalytics.com
+  description: Collection API - sandbox
+- url: https://metrics.gameanalytics.com
+  description: Metrics API
+- url: https://organization.gameanalytics.com
+  description: Organization API
+tags:
+- name: Organization
+  description: Programmatic administration of games, studios, users, and permissions.
+paths:
+  /api/v1/games:
+    get:
+      operationId: listGames
+      tags:
+      - Organization
+      summary: List all games in the organization.
+      servers:
+      - url: https://organization.gameanalytics.com
+      security:
+      - apiKeyHeader: []
+      responses:
+        '200':
+          description: A list of games.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createGame
+      tags:
+      - Organization
+      summary: Create a game.
+      servers:
+      - url: https://organization.gameanalytics.com
+      security:
+      - apiKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game'
+      responses:
+        '200':
+          description: The created game.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+  /api/v1/games/{game_id}:
+    get:
+      operationId: getGame
+      tags:
+      - Organization
+      summary: Retrieve a single game.
+      servers:
+      - url: https://organization.gameanalytics.com
+      security:
+      - apiKeyHeader: []
+      parameters:
+      - name: game_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A game object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+  /api/v1/studios:
+    get:
+      operationId: listStudios
+      tags:
+      - Organization
+      summary: List all studios in the organization.
+      servers:
+      - url: https://organization.gameanalytics.com
+      security:
+      - apiKeyHeader: []
+      responses:
+        '200':
+          description: A list of studios.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Studio'
+    post:
+      operationId: createStudio
+      tags:
+      - Organization
+      summary: Create a studio.
+      servers:
+      - url: https://organization.gameanalytics.com
+      security:
+      - apiKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Studio'
+      responses:
+        '200':
+          description: The created studio.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Studio'
+  /api/v1/studios/{studio_id}:
+    get:
+      operationId: getStudio
+      tags:
+      - Organization
+      summary: Retrieve a single studio.
+      servers:
+      - url: https://organization.gameanalytics.com
+      security:
+      - apiKeyHeader: []
+      parameters:
+      - name: studio_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A studio object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Studio'
+  /api/v1/users:
+    get:
+      operationId: listUsers
+      tags:
+      - Organization
+      summary: List all users in the organization.
+      servers:
+      - url: https://organization.gameanalytics.com
+      security:
+      - apiKeyHeader: []
+      responses:
+        '200':
+          description: A list of users.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /api/v1/users/invite:
+    post:
+      operationId: inviteUser
+      tags:
+      - Organization
+      summary: Invite a user to the organization.
+      servers:
+      - url: https://organization.gameanalytics.com
+      security:
+      - apiKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInvite'
+      responses:
+        '200':
+          description: Invitation sent.
+  /api/v1/users/{user_id}/replace_acl:
+    post:
+      operationId: replaceUserAcl
+      tags:
+      - Organization
+      summary: Replace a user's access permissions (ACL).
+      servers:
+      - url: https://organization.gameanalytics.com
+      security:
+      - apiKeyHeader: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Acl'
+      responses:
+        '200':
+          description: Permissions updated.
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+    Acl:
+      type: object
+      description: Access control list mapping games/studios to permission roles.
+      properties:
+        studios:
+          type: array
+          items:
+            type: object
+            properties:
+              studio_id:
+                type: integer
+              role:
+                type: string
+                enum:
+                - admin
+                - member
+                - viewer
+        games:
+          type: array
+          items:
+            type: object
+            properties:
+              game_id:
+                type: integer
+              role:
+                type: string
+                enum:
+                - admin
+                - member
+                - viewer
+    Game:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        studio_id:
+          type: integer
+        platform:
+          type: string
+        game_key:
+          type: string
+        secret_key:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    Studio:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    UserInvite:
+      type: object
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          format: email
+        acl:
+          $ref: '#/components/schemas/Acl'
+  responses:
+    Unauthorized:
+      description: Missing or invalid authentication (bad HMAC signature or API key).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    hmacAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Base64-encoded HMAC-SHA256 digest of the raw (optionally gzipped) request body, keyed with the game's secret key. Used by the Collection API.
+    apiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key generated in the GameAnalytics dashboard. The Metrics API uses the `X-API-Key` header; the Organization API uses an equivalent API-key header.

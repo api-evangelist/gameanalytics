@@ -1,0 +1,138 @@
+openapi: 3.0.3
+info:
+  title: GameAnalytics REST APIs Collection Metrics API
+  description: 'Representative OpenAPI description of the public GameAnalytics REST surfaces: the Collection (Collector) API for HMAC-signed event ingestion, the Metrics API for aggregated reporting, and the Organization API for programmatic administration of games, studios, users, and permissions. Endpoints and authentication reflect the public GameAnalytics documentation; consult the docs for the full request/response payloads, which are large and evolving.'
+  termsOfService: https://gameanalytics.com/terms/
+  contact:
+    name: GameAnalytics Support
+    url: https://gameanalytics.com/contact/
+  version: '1.0'
+servers:
+- url: https://api.gameanalytics.com
+  description: Collection API - production
+- url: https://sandbox-api.gameanalytics.com
+  description: Collection API - sandbox
+- url: https://metrics.gameanalytics.com
+  description: Metrics API
+- url: https://organization.gameanalytics.com
+  description: Organization API
+tags:
+- name: Metrics
+  description: Aggregated gameplay metrics and reporting.
+paths:
+  /metrics/v1/metrics/{metric}:
+    post:
+      operationId: queryMetric
+      tags:
+      - Metrics
+      summary: Query an aggregated gameplay metric.
+      description: Returns aggregated metric data (for example `dau`, `mau`, `retention_retro`, `arpu`, `arppu`, `session_length`, `revenue`, `ad_revenue`) as JSON. Authenticated with the `X-API-Key` header. The body specifies an ISO-8601 `interval`, a `granularity`, an optional `game` id, and a `query` object of type `group`, `split`, or `timeseries`.
+      servers:
+      - url: https://metrics.gameanalytics.com
+      security:
+      - apiKeyHeader: []
+      parameters:
+      - name: metric
+        in: path
+        required: true
+        description: The metric to query (e.g. dau, mau, retention_retro, arpu, arppu, session_length).
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetricsQuery'
+      responses:
+        '200':
+          description: Metric result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    MetricsResult:
+      type: object
+      properties:
+        interval:
+          type: string
+        granularity:
+          type: string
+        results:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    MetricsQuery:
+      type: object
+      required:
+      - interval
+      - granularity
+      - query
+      properties:
+        game:
+          type: integer
+          description: The game id to query (optional for some query types).
+        interval:
+          type: string
+          description: ISO-8601 interval, e.g. "2026-06-01/P1W".
+          example: 2026-06-01/P1W
+        granularity:
+          type: string
+          enum:
+          - day
+          - week
+          - all
+        days_since_install:
+          type: array
+          items:
+            type: integer
+          description: Optional cohort array (0-90) for retention-style metrics.
+        filter:
+          type: object
+          additionalProperties: true
+        query:
+          type: object
+          description: The query specification.
+          properties:
+            type:
+              type: string
+              enum:
+              - group
+              - split
+              - timeseries
+            dimensions:
+              type: array
+              items:
+                type: string
+            limit:
+              type: integer
+  responses:
+    Unauthorized:
+      description: Missing or invalid authentication (bad HMAC signature or API key).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    hmacAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Base64-encoded HMAC-SHA256 digest of the raw (optionally gzipped) request body, keyed with the game's secret key. Used by the Collection API.
+    apiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key generated in the GameAnalytics dashboard. The Metrics API uses the `X-API-Key` header; the Organization API uses an equivalent API-key header.
