@@ -8,7 +8,20 @@ description: GameAnalytics is a free analytics platform purpose-built for games,
   through the HMAC-signed Collection (Collector) REST API or platform SDKs, queried
   through the Metrics API, streamed to a customer's own cloud via PipelineIQ Data
   Export, and administered through the Organization API.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/gameanalytics.png
 tags:
 - Analytics
 - Games
@@ -22,86 +35,6 @@ created: '2026-07-01'
 modified: '2026-07-01'
 specificationVersion: '0.19'
 apis:
-- aid: gameanalytics:gameanalytics-collection-api
-  name: GameAnalytics Collection API
-  tags:
-  - Collection
-  - Collector
-  - Event Ingestion
-  - Telemetry
-  - HMAC
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.gameanalytics.com/event-tracking-and-integrations/sdks-and-collection-api/api/setup/
-  baseURL: https://api.gameanalytics.com/v2
-  properties:
-  - url: https://docs.gameanalytics.com/event-tracking-and-integrations/sdks-and-collection-api/api/setup/
-    type: Documentation
-  - url: https://docs.gameanalytics.com/event-tracking-and-integrations/sdks-and-collection-api/api/collector
-    type: APIReference
-  - url: openapi/gameanalytics-openapi.yml
-    type: OpenAPI
-  - url: collections/gameanalytics.postman_collection.json
-    type: PostmanCollection
-  - url: collections/gameanalytics.opencollection.json
-    type: OpenCollection
-  description: HMAC-SHA256 authenticated REST ingestion API for submitting game
-    events. Clients POST an init request to /v2/{game_key}/init for a server
-    timestamp and enabled flag, then batch and POST event objects (user/session,
-    business, resource, progression, design, error, ad) to /v2/{game_key}/events,
-    signing the gzipped JSON body with the game's secret key.
-- aid: gameanalytics:gameanalytics-metrics-api
-  name: GameAnalytics Metrics API
-  tags:
-  - Metrics
-  - Reporting
-  - Retention
-  - DAU
-  - MAU
-  - ARPU
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.gameanalytics.com/products-and-features/pipeline-iq/metrics-api/how-to-use-the-metrics-api/
-  baseURL: https://metrics.gameanalytics.com/metrics/v1
-  properties:
-  - url: https://docs.gameanalytics.com/products-and-features/pipeline-iq/metrics-api/how-to-use-the-metrics-api/
-    type: Documentation
-  - url: https://docs.gameanalytics.com/products-and-features/pipeline-iq/metrics-api/query-examples/
-    type: APIReference
-  - url: openapi/gameanalytics-openapi.yml
-    type: OpenAPI
-  - url: collections/gameanalytics.postman_collection.json
-    type: PostmanCollection
-  - url: collections/gameanalytics.opencollection.json
-    type: OpenCollection
-  description: X-API-Key authenticated reporting API that returns aggregated
-    gameplay metrics - DAU/MAU, retention (retention_retro), ARPU/ARPPU/ARPDAU,
-    session length, revenue and ad revenue - as JSON, queried by POSTing an
-    interval, granularity, and a group/split/timeseries query object per metric.
-- aid: gameanalytics:gameanalytics-organization-api
-  name: GameAnalytics Organization API
-  tags:
-  - Organization
-  - Administration
-  - Games
-  - Studios
-  - Users
-  - Permissions
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.gameanalytics.com/products-and-features/pipeline-iq/organization-api/api-specification/
-  baseURL: https://organization.gameanalytics.com/api/v1
-  properties:
-  - url: https://docs.gameanalytics.com/products-and-features/pipeline-iq/organization-api/overview-and-use-cases
-    type: Documentation
-  - url: https://docs.gameanalytics.com/products-and-features/pipeline-iq/organization-api/api-specification/
-    type: APIReference
-  - url: openapi/gameanalytics-openapi.yml
-    type: OpenAPI
-  - url: collections/gameanalytics.postman_collection.json
-    type: PostmanCollection
-  - url: collections/gameanalytics.opencollection.json
-    type: OpenCollection
-  description: API-key authenticated administration API for programmatically
-    managing games, studios, users, and user access permissions (ACLs) across a
-    GameAnalytics organization, including inviting users and uploading game icons.
 - aid: gameanalytics:gameanalytics-data-export-api
   name: GameAnalytics Data Export (PipelineIQ)
   tags:
@@ -112,17 +45,118 @@ apis:
   - Data Warehouse
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://www.gameanalytics.com/pipelineiq/data-export
-  baseURL: https://docs.gameanalytics.com/products-and-features/pipeline-iq/data-export/json-schemas/
+  baseURL: >-
+    https://docs.gameanalytics.com/products-and-features/pipeline-iq/data-export/json-schemas/
   properties:
   - url: https://www.gameanalytics.com/pipelineiq/data-export
     type: Documentation
-  - url: https://docs.gameanalytics.com/products-and-features/pipeline-iq/data-export/json-schemas/
+  - url: >-
+      https://docs.gameanalytics.com/products-and-features/pipeline-iq/data-export/json-schemas/
     type: APIReference
-  description: PipelineIQ raw data export streams every gameplay event as JSON
-    objects (a metadata wrapper plus an event data object) in real time, with
-    historical backfill, into a customer's own cloud environment - AWS S3, Google
-    BigQuery, Google Cloud Storage - for use in Tableau, Looker, or Power BI. It
-    is a data pipeline rather than a request/response REST API.
+  description: >-
+    PipelineIQ raw data export streams every gameplay event as JSON objects (a metadata wrapper plus an
+    event data object) in real time, with historical backfill, into a customer's own cloud environment
+    - AWS S3, Google BigQuery, Google Cloud Storage - for use in Tableau, Looker, or Power BI. It is a
+    data pipeline rather than a request/response REST API.
+- aid: gameanalytics:gameanalytics-collection-api
+  name: GameAnalytics Collection API
+  description: HMAC-signed event ingestion (Collector API).
+  humanURL: >-
+    https://docs.gameanalytics.com/event-tracking-and-integrations/sdks-and-collection-api/api/setup/
+  baseURL: https://api.gameanalytics.com/v2
+  tags:
+  - Collection
+  properties:
+  - type: OpenAPI
+    url: openapi/gameanalytics-collection-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://docs.gameanalytics.com/event-tracking-and-integrations/sdks-and-collection-api/api/setup/
+  - type: APIReference
+    url: >-
+      https://docs.gameanalytics.com/event-tracking-and-integrations/sdks-and-collection-api/api/collector
+  - type: PostmanCollection
+    url: collections/gameanalytics.postman_collection.json
+  - type: OpenCollection
+    url: collections/gameanalytics.opencollection.json
+  - type: Documentation
+    url: >-
+      https://docs.gameanalytics.com/products-and-features/pipeline-iq/metrics-api/how-to-use-the-metrics-api/
+  - type: APIReference
+    url: >-
+      https://docs.gameanalytics.com/products-and-features/pipeline-iq/metrics-api/query-examples/
+  - type: Documentation
+    url: >-
+      https://docs.gameanalytics.com/products-and-features/pipeline-iq/organization-api/overview-and-use-cases
+  - type: APIReference
+    url: >-
+      https://docs.gameanalytics.com/products-and-features/pipeline-iq/organization-api/api-specification/
+- aid: gameanalytics:gameanalytics-metrics-api
+  name: GameAnalytics Metrics API
+  description: Aggregated gameplay metrics and reporting.
+  humanURL: >-
+    https://docs.gameanalytics.com/event-tracking-and-integrations/sdks-and-collection-api/api/setup/
+  baseURL: https://api.gameanalytics.com/v2
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/gameanalytics-metrics-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://docs.gameanalytics.com/event-tracking-and-integrations/sdks-and-collection-api/api/setup/
+  - type: APIReference
+    url: >-
+      https://docs.gameanalytics.com/event-tracking-and-integrations/sdks-and-collection-api/api/collector
+  - type: PostmanCollection
+    url: collections/gameanalytics.postman_collection.json
+  - type: OpenCollection
+    url: collections/gameanalytics.opencollection.json
+  - type: Documentation
+    url: >-
+      https://docs.gameanalytics.com/products-and-features/pipeline-iq/metrics-api/how-to-use-the-metrics-api/
+  - type: APIReference
+    url: >-
+      https://docs.gameanalytics.com/products-and-features/pipeline-iq/metrics-api/query-examples/
+  - type: Documentation
+    url: >-
+      https://docs.gameanalytics.com/products-and-features/pipeline-iq/organization-api/overview-and-use-cases
+  - type: APIReference
+    url: >-
+      https://docs.gameanalytics.com/products-and-features/pipeline-iq/organization-api/api-specification/
+- aid: gameanalytics:gameanalytics-organization-api
+  name: GameAnalytics Organization API
+  description: Programmatic administration of games, studios, users, and permissions.
+  humanURL: >-
+    https://docs.gameanalytics.com/event-tracking-and-integrations/sdks-and-collection-api/api/setup/
+  baseURL: https://api.gameanalytics.com/v2
+  tags:
+  - Organization
+  properties:
+  - type: OpenAPI
+    url: openapi/gameanalytics-organization-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://docs.gameanalytics.com/event-tracking-and-integrations/sdks-and-collection-api/api/setup/
+  - type: APIReference
+    url: >-
+      https://docs.gameanalytics.com/event-tracking-and-integrations/sdks-and-collection-api/api/collector
+  - type: PostmanCollection
+    url: collections/gameanalytics.postman_collection.json
+  - type: OpenCollection
+    url: collections/gameanalytics.opencollection.json
+  - type: Documentation
+    url: >-
+      https://docs.gameanalytics.com/products-and-features/pipeline-iq/metrics-api/how-to-use-the-metrics-api/
+  - type: APIReference
+    url: >-
+      https://docs.gameanalytics.com/products-and-features/pipeline-iq/metrics-api/query-examples/
+  - type: Documentation
+    url: >-
+      https://docs.gameanalytics.com/products-and-features/pipeline-iq/organization-api/overview-and-use-cases
+  - type: APIReference
+    url: >-
+      https://docs.gameanalytics.com/products-and-features/pipeline-iq/organization-api/api-specification/
 common:
 - type: AgenticAccess
   url: agentic-access/gameanalytics-agentic-access.yml
