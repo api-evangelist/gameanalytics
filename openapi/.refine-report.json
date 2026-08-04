@@ -1,0 +1,18 @@
+{
+  "provider": "gameanalytics",
+  "sources": [
+    "gameanalytics-collection-api-openapi.yml",
+    "gameanalytics-metrics-api-openapi.yml",
+    "gameanalytics-organization-api-openapi.yml"
+  ],
+  "outputs": [
+    "gameanalytics-collection-api-openapi.yml",
+    "gameanalytics-metrics-api-openapi.yml",
+    "gameanalytics-organization-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
