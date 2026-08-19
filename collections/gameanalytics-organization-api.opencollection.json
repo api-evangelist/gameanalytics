@@ -1,0 +1,208 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GameAnalytics REST APIs Collection Organization API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all games in the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gameanalytics.com/api/v1/games",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all games in the organization."
+        },
+        {
+          "info": {
+            "name": "Create a game.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gameanalytics.com/api/v1/games",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a game."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single game.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gameanalytics.com/api/v1/games/:game_id",
+            "params": [
+              {
+                "name": "game_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a single game."
+        },
+        {
+          "info": {
+            "name": "List all studios in the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gameanalytics.com/api/v1/studios",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all studios in the organization."
+        },
+        {
+          "info": {
+            "name": "Create a studio.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gameanalytics.com/api/v1/studios",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a studio."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single studio.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gameanalytics.com/api/v1/studios/:studio_id",
+            "params": [
+              {
+                "name": "studio_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a single studio."
+        },
+        {
+          "info": {
+            "name": "List all users in the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.gameanalytics.com/api/v1/users",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all users in the organization."
+        },
+        {
+          "info": {
+            "name": "Invite a user to the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gameanalytics.com/api/v1/users/invite",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Invite a user to the organization."
+        },
+        {
+          "info": {
+            "name": "Replace a user's access permissions (ACL).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gameanalytics.com/api/v1/users/:user_id/replace_acl",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Replace a user's access permissions (ACL)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

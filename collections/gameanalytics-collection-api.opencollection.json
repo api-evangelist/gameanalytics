@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GameAnalytics REST APIs Collection API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Collection",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initialize an SDK/collection session.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gameanalytics.com/v2/:game_key/init",
+            "headers": [
+              {
+                "name": "Content-Encoding",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "game_key",
+                "value": "",
+                "type": "path",
+                "description": "The public game key identifying the game in GameAnalytics."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a server timestamp and an `enabled` flag before events are sent. The request body must be signed with an HMAC-SHA256 digest of the raw (optionally gzipped) body using the game secret key, base64-encoded, and supplied in the `Authorization` header. HTTPS is required."
+        },
+        {
+          "info": {
+            "name": "Submit a batch of game events.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.gameanalytics.com/v2/:game_key/events",
+            "headers": [
+              {
+                "name": "Content-Encoding",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "game_key",
+                "value": "",
+                "type": "path",
+                "description": "The public game key identifying the game in GameAnalytics."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Accepts a JSON array of event objects (categories include `user`, `session_end`, `business`, `resource`, `progression`, `design`, `error`, and `ads`). The gzipped body must be signed with an HMAC-SHA256 digest using the game secret key (base64) in the `Authorization` header. POST size limit is 1 MB; gzip is strongly recommended."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

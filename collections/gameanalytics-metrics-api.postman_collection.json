@@ -1,0 +1,240 @@
+{
+  "item": [
+    {
+      "id": "64091dd6-0afb-43eb-b113-b906361ece2e",
+      "name": "Metrics",
+      "description": {
+        "content": "Aggregated gameplay metrics and reporting.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1ca81cc4-6c58-4a01-b668-7df0d70a3b78",
+          "name": "Query an aggregated gameplay metric.",
+          "request": {
+            "name": "Query an aggregated gameplay metric.",
+            "description": {
+              "content": "Returns aggregated metric data (for example `dau`, `mau`, `retention_retro`, `arpu`, `arppu`, `session_length`, `revenue`, `ad_revenue`) as JSON. Authenticated with the `X-API-Key` header. The body specifies an ISO-8601 `interval`, a `granularity`, an optional `game` id, and a `query` object of type `group`, `split`, or `timeseries`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "metrics",
+                "v1",
+                "metrics",
+                ":metric"
+              ],
+              "host": [
+                "metrics",
+                "gameanalytics",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "metric",
+                  "description": "(Required) The metric to query (e.g. dau, mau, retention_retro, arpu, arppu, session_length)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"interval\": \"<string>\",\n  \"granularity\": \"<string>\",\n  \"query\": {\n    \"type\": \"<string>\",\n    \"dimensions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"limit\": \"<integer>\"\n  },\n  \"game\": \"<integer>\",\n  \"days_since_install\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"filter\": {\n    \"key_0\": 8825,\n    \"key_1\": 924\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d9831c12-a575-4ffb-979b-3076eea17f8c",
+              "name": "Metric result.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "metrics",
+                    "v1",
+                    "metrics",
+                    ":metric"
+                  ],
+                  "host": [
+                    "metrics",
+                    "gameanalytics",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "metric",
+                      "description": "(Required) The metric to query (e.g. dau, mau, retention_retro, arpu, arppu, session_length)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"interval\": \"2026-06-01/P1W\",\n  \"granularity\": \"<string>\",\n  \"query\": {\n    \"type\": \"<string>\",\n    \"dimensions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"limit\": \"<integer>\"\n  },\n  \"game\": \"<integer>\",\n  \"days_since_install\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"filter\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"interval\": \"string\",\n  \"granularity\": \"string\",\n  \"results\": [\n    {\n      \"key_0\": true\n    },\n    {\n      \"key_0\": true,\n      \"key_1\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e54cbeb-269d-4b1c-ae82-aad10a258e37",
+              "name": "Missing or invalid authentication (bad HMAC signature or API key).",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "metrics",
+                    "v1",
+                    "metrics",
+                    ":metric"
+                  ],
+                  "host": [
+                    "metrics",
+                    "gameanalytics",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "metric",
+                      "description": "(Required) The metric to query (e.g. dau, mau, retention_retro, arpu, arppu, session_length)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"interval\": \"2026-06-01/P1W\",\n  \"granularity\": \"<string>\",\n  \"query\": {\n    \"type\": \"<string>\",\n    \"dimensions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"limit\": \"<integer>\"\n  },\n  \"game\": \"<integer>\",\n  \"days_since_install\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"filter\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.gameanalytics.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ce0a0004-415f-44da-8443-81ace9f1881e",
+    "name": "GameAnalytics REST APIs Collection Metrics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Representative OpenAPI description of the public GameAnalytics REST surfaces: the Collection (Collector) API for HMAC-signed event ingestion, the Metrics API for aggregated reporting, and the Organization API for programmatic administration of games, studios, users, and permissions. Endpoints and authentication reflect the public GameAnalytics documentation; consult the docs for the full request/response payloads, which are large and evolving.\n\nContact Support:\n Name: GameAnalytics Support",
+      "type": "text/plain"
+    }
+  }
+}

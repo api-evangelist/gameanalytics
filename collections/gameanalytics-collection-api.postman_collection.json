@@ -1,0 +1,653 @@
+{
+  "item": [
+    {
+      "id": "39fb443f-6d14-403b-a530-796c795ca566",
+      "name": "Collection",
+      "description": {
+        "content": "HMAC-signed event ingestion (Collector API).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b64c6fe6-fb30-4b30-8224-beb51d4dd3bf",
+          "name": "Initialize an SDK/collection session.",
+          "request": {
+            "name": "Initialize an SDK/collection session.",
+            "description": {
+              "content": "Returns a server timestamp and an `enabled` flag before events are sent. The request body must be signed with an HMAC-SHA256 digest of the raw (optionally gzipped) body using the game secret key, base64-encoded, and supplied in the `Authorization` header. HTTPS is required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                ":game_key",
+                "init"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "game_key",
+                  "description": "(Required) The public game key identifying the game in GameAnalytics."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Set to `gzip` when the body is gzip-compressed (strongly recommended).",
+                "key": "Content-Encoding",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"platform\": \"<string>\",\n  \"os_version\": \"<string>\",\n  \"sdk_version\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9882869d-bfb7-4ad1-941d-802227f2daeb",
+              "name": "Initialization succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":game_key",
+                    "init"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "game_key",
+                      "description": "(Required) The public game key identifying the game in GameAnalytics."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Set to `gzip` when the body is gzip-compressed (strongly recommended).",
+                    "key": "Content-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"platform\": \"ios\",\n  \"os_version\": \"ios 17.0\",\n  \"sdk_version\": \"rest api v2\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"enabled\": true,\n  \"server_ts\": 5263\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "798e291a-77cb-414b-a077-21e529f7541e",
+              "name": "The request was malformed or failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":game_key",
+                    "init"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "game_key",
+                      "description": "(Required) The public game key identifying the game in GameAnalytics."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Set to `gzip` when the body is gzip-compressed (strongly recommended).",
+                    "key": "Content-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"platform\": \"ios\",\n  \"os_version\": \"ios 17.0\",\n  \"sdk_version\": \"rest api v2\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca7a3598-3ec2-4036-a133-50ae38c379bd",
+              "name": "Missing or invalid authentication (bad HMAC signature or API key).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":game_key",
+                    "init"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "game_key",
+                      "description": "(Required) The public game key identifying the game in GameAnalytics."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Set to `gzip` when the body is gzip-compressed (strongly recommended).",
+                    "key": "Content-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"platform\": \"ios\",\n  \"os_version\": \"ios 17.0\",\n  \"sdk_version\": \"rest api v2\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c16f235c-1ac5-40cb-b17e-200a0ac4da63",
+          "name": "Submit a batch of game events.",
+          "request": {
+            "name": "Submit a batch of game events.",
+            "description": {
+              "content": "Accepts a JSON array of event objects (categories include `user`, `session_end`, `business`, `resource`, `progression`, `design`, `error`, and `ads`). The gzipped body must be signed with an HMAC-SHA256 digest using the game secret key (base64) in the `Authorization` header. POST size limit is 1 MB; gzip is strongly recommended.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                ":game_key",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "game_key",
+                  "description": "(Required) The public game key identifying the game in GameAnalytics."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Set to `gzip` when the body is gzip-compressed (strongly recommended).",
+                "key": "Content-Encoding",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"category\": \"<string>\",\n    \"v\": \"<integer>\",\n    \"user_id\": \"<string>\",\n    \"session_id\": \"<string>\",\n    \"session_num\": \"<integer>\",\n    \"client_ts\": \"<long>\",\n    \"sdk_version\": \"<string>\",\n    \"os_version\": \"<string>\",\n    \"manufacturer\": \"<string>\",\n    \"device\": \"<string>\",\n    \"platform\": \"<string>\",\n    \"build\": \"<string>\",\n    \"event_id\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\",\n    \"value\": \"<number>\"\n  },\n  {\n    \"category\": \"<string>\",\n    \"v\": \"<integer>\",\n    \"user_id\": \"<string>\",\n    \"session_id\": \"<string>\",\n    \"session_num\": \"<integer>\",\n    \"client_ts\": \"<long>\",\n    \"sdk_version\": \"<string>\",\n    \"os_version\": \"<string>\",\n    \"manufacturer\": \"<string>\",\n    \"device\": \"<string>\",\n    \"platform\": \"<string>\",\n    \"build\": \"<string>\",\n    \"event_id\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\",\n    \"value\": \"<number>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c6b3767b-949d-4982-90a8-1daed7c38c72",
+              "name": "Events accepted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":game_key",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "game_key",
+                      "description": "(Required) The public game key identifying the game in GameAnalytics."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Set to `gzip` when the body is gzip-compressed (strongly recommended).",
+                    "key": "Content-Encoding",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"category\": \"<string>\",\n    \"v\": 2,\n    \"user_id\": \"<string>\",\n    \"session_id\": \"<string>\",\n    \"session_num\": \"<integer>\",\n    \"client_ts\": \"<long>\",\n    \"sdk_version\": \"<string>\",\n    \"os_version\": \"<string>\",\n    \"manufacturer\": \"<string>\",\n    \"device\": \"<string>\",\n    \"platform\": \"<string>\",\n    \"build\": \"<string>\",\n    \"event_id\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\",\n    \"value\": \"<number>\"\n  },\n  {\n    \"category\": \"<string>\",\n    \"v\": 2,\n    \"user_id\": \"<string>\",\n    \"session_id\": \"<string>\",\n    \"session_num\": \"<integer>\",\n    \"client_ts\": \"<long>\",\n    \"sdk_version\": \"<string>\",\n    \"os_version\": \"<string>\",\n    \"manufacturer\": \"<string>\",\n    \"device\": \"<string>\",\n    \"platform\": \"<string>\",\n    \"build\": \"<string>\",\n    \"event_id\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\",\n    \"value\": \"<number>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "11bc3331-de54-445c-86eb-21f7ccf2b322",
+              "name": "The request was malformed or failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":game_key",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "game_key",
+                      "description": "(Required) The public game key identifying the game in GameAnalytics."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Set to `gzip` when the body is gzip-compressed (strongly recommended).",
+                    "key": "Content-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"category\": \"<string>\",\n    \"v\": 2,\n    \"user_id\": \"<string>\",\n    \"session_id\": \"<string>\",\n    \"session_num\": \"<integer>\",\n    \"client_ts\": \"<long>\",\n    \"sdk_version\": \"<string>\",\n    \"os_version\": \"<string>\",\n    \"manufacturer\": \"<string>\",\n    \"device\": \"<string>\",\n    \"platform\": \"<string>\",\n    \"build\": \"<string>\",\n    \"event_id\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\",\n    \"value\": \"<number>\"\n  },\n  {\n    \"category\": \"<string>\",\n    \"v\": 2,\n    \"user_id\": \"<string>\",\n    \"session_id\": \"<string>\",\n    \"session_num\": \"<integer>\",\n    \"client_ts\": \"<long>\",\n    \"sdk_version\": \"<string>\",\n    \"os_version\": \"<string>\",\n    \"manufacturer\": \"<string>\",\n    \"device\": \"<string>\",\n    \"platform\": \"<string>\",\n    \"build\": \"<string>\",\n    \"event_id\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\",\n    \"value\": \"<number>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79832efe-2956-4e19-a26d-16f79d92c642",
+              "name": "Missing or invalid authentication (bad HMAC signature or API key).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":game_key",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "game_key",
+                      "description": "(Required) The public game key identifying the game in GameAnalytics."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Set to `gzip` when the body is gzip-compressed (strongly recommended).",
+                    "key": "Content-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"category\": \"<string>\",\n    \"v\": 2,\n    \"user_id\": \"<string>\",\n    \"session_id\": \"<string>\",\n    \"session_num\": \"<integer>\",\n    \"client_ts\": \"<long>\",\n    \"sdk_version\": \"<string>\",\n    \"os_version\": \"<string>\",\n    \"manufacturer\": \"<string>\",\n    \"device\": \"<string>\",\n    \"platform\": \"<string>\",\n    \"build\": \"<string>\",\n    \"event_id\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\",\n    \"value\": \"<number>\"\n  },\n  {\n    \"category\": \"<string>\",\n    \"v\": 2,\n    \"user_id\": \"<string>\",\n    \"session_id\": \"<string>\",\n    \"session_num\": \"<integer>\",\n    \"client_ts\": \"<long>\",\n    \"sdk_version\": \"<string>\",\n    \"os_version\": \"<string>\",\n    \"manufacturer\": \"<string>\",\n    \"device\": \"<string>\",\n    \"platform\": \"<string>\",\n    \"build\": \"<string>\",\n    \"event_id\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\",\n    \"value\": \"<number>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4fe8bc33-50d2-4b2f-a992-e3ee8c446e22",
+              "name": "Payload exceeds the 1 MB POST size limit.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":game_key",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "game_key",
+                      "description": "(Required) The public game key identifying the game in GameAnalytics."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Set to `gzip` when the body is gzip-compressed (strongly recommended).",
+                    "key": "Content-Encoding",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"category\": \"<string>\",\n    \"v\": 2,\n    \"user_id\": \"<string>\",\n    \"session_id\": \"<string>\",\n    \"session_num\": \"<integer>\",\n    \"client_ts\": \"<long>\",\n    \"sdk_version\": \"<string>\",\n    \"os_version\": \"<string>\",\n    \"manufacturer\": \"<string>\",\n    \"device\": \"<string>\",\n    \"platform\": \"<string>\",\n    \"build\": \"<string>\",\n    \"event_id\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\",\n    \"value\": \"<number>\"\n  },\n  {\n    \"category\": \"<string>\",\n    \"v\": 2,\n    \"user_id\": \"<string>\",\n    \"session_id\": \"<string>\",\n    \"session_num\": \"<integer>\",\n    \"client_ts\": \"<long>\",\n    \"sdk_version\": \"<string>\",\n    \"os_version\": \"<string>\",\n    \"manufacturer\": \"<string>\",\n    \"device\": \"<string>\",\n    \"platform\": \"<string>\",\n    \"build\": \"<string>\",\n    \"event_id\": \"<string>\",\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\",\n    \"value\": \"<number>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.gameanalytics.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "17215fd8-9cb9-4360-a000-c7707106c174",
+    "name": "GameAnalytics REST APIs Collection API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Representative OpenAPI description of the public GameAnalytics REST surfaces: the Collection (Collector) API for HMAC-signed event ingestion, the Metrics API for aggregated reporting, and the Organization API for programmatic administration of games, studios, users, and permissions. Endpoints and authentication reflect the public GameAnalytics documentation; consult the docs for the full request/response payloads, which are large and evolving.\n\nContact Support:\n Name: GameAnalytics Support",
+      "type": "text/plain"
+    }
+  }
+}
