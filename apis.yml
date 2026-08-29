@@ -8,6 +8,18 @@ description: GameAnalytics is a free analytics platform purpose-built for games,
   through the HMAC-signed Collection (Collector) REST API or platform SDKs, queried
   through the Metrics API, streamed to a customer's own cloud via PipelineIQ Data
   Export, and administered through the Organization API.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
