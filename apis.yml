@@ -170,6 +170,9 @@ apis:
     url: >-
       https://docs.gameanalytics.com/products-and-features/pipeline-iq/organization-api/api-specification/
 common:
+- type: CapabilityMap
+  url: capabilities/gameanalytics-capability-edges.yml
+  name: GameAnalytics Business Capability Map
 - type: AgenticAccess
   url: agentic-access/gameanalytics-agentic-access.yml
 - type: TrustCenter
