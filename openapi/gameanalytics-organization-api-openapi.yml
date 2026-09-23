@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: GameAnalytics REST APIs Collection Organization API
+  title: GameAnalytics REST Organization API
   description: 'Representative OpenAPI description of the public GameAnalytics REST surfaces: the Collection (Collector) API for HMAC-signed event ingestion, the Metrics API for aggregated reporting, and the Organization API for programmatic administration of games, studios, users, and permissions. Endpoints and authentication reflect the public GameAnalytics documentation; consult the docs for the full request/response payloads, which are large and evolving.'
   termsOfService: https://gameanalytics.com/terms/
   contact:
@@ -25,7 +25,7 @@ paths:
       operationId: listGames
       tags:
       - Organization
-      summary: List all games in the organization.
+      summary: List all games in the organization
       servers:
       - url: https://organization.gameanalytics.com
       security:
@@ -45,7 +45,7 @@ paths:
       operationId: createGame
       tags:
       - Organization
-      summary: Create a game.
+      summary: Create a game
       servers:
       - url: https://organization.gameanalytics.com
       security:
@@ -68,7 +68,7 @@ paths:
       operationId: getGame
       tags:
       - Organization
-      summary: Retrieve a single game.
+      summary: Retrieve a single game
       servers:
       - url: https://organization.gameanalytics.com
       security:
@@ -91,7 +91,7 @@ paths:
       operationId: listStudios
       tags:
       - Organization
-      summary: List all studios in the organization.
+      summary: List all studios in the organization
       servers:
       - url: https://organization.gameanalytics.com
       security:
@@ -109,7 +109,7 @@ paths:
       operationId: createStudio
       tags:
       - Organization
-      summary: Create a studio.
+      summary: Create a studio
       servers:
       - url: https://organization.gameanalytics.com
       security:
@@ -132,7 +132,7 @@ paths:
       operationId: getStudio
       tags:
       - Organization
-      summary: Retrieve a single studio.
+      summary: Retrieve a single studio
       servers:
       - url: https://organization.gameanalytics.com
       security:
@@ -155,7 +155,7 @@ paths:
       operationId: listUsers
       tags:
       - Organization
-      summary: List all users in the organization.
+      summary: List all users in the organization
       servers:
       - url: https://organization.gameanalytics.com
       security:
@@ -174,7 +174,7 @@ paths:
       operationId: inviteUser
       tags:
       - Organization
-      summary: Invite a user to the organization.
+      summary: Invite a user to the organization
       servers:
       - url: https://organization.gameanalytics.com
       security:
@@ -193,7 +193,7 @@ paths:
       operationId: replaceUserAcl
       tags:
       - Organization
-      summary: Replace a user's access permissions (ACL).
+      summary: Replace a user's access permissions (ACL)
       servers:
       - url: https://organization.gameanalytics.com
       security:
@@ -215,6 +215,21 @@ paths:
           description: Permissions updated.
 components:
   schemas:
+    Game:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        studio_id:
+          type: integer
+        platform:
+          type: string
+        game_key:
+          type: string
+        secret_key:
+          type: string
     User:
       type: object
       properties:
@@ -225,6 +240,23 @@ components:
           format: email
         name:
           type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    UserInvite:
+      type: object
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          format: email
+        acl:
+          $ref: '#/components/schemas/Acl'
     Acl:
       type: object
       description: Access control list mapping games/studios to permission roles.
@@ -255,28 +287,6 @@ components:
                 - admin
                 - member
                 - viewer
-    Game:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        studio_id:
-          type: integer
-        platform:
-          type: string
-        game_key:
-          type: string
-        secret_key:
-          type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
     Studio:
       type: object
       properties:
@@ -284,16 +294,6 @@ components:
           type: integer
         name:
           type: string
-    UserInvite:
-      type: object
-      required:
-      - email
-      properties:
-        email:
-          type: string
-          format: email
-        acl:
-          $ref: '#/components/schemas/Acl'
   responses:
     Unauthorized:
       description: Missing or invalid authentication (bad HMAC signature or API key).

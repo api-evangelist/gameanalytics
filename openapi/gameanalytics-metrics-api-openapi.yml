@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: GameAnalytics REST APIs Collection Metrics API
+  title: GameAnalytics REST Metrics API
   description: 'Representative OpenAPI description of the public GameAnalytics REST surfaces: the Collection (Collector) API for HMAC-signed event ingestion, the Metrics API for aggregated reporting, and the Organization API for programmatic administration of games, studios, users, and permissions. Endpoints and authentication reflect the public GameAnalytics documentation; consult the docs for the full request/response payloads, which are large and evolving.'
   termsOfService: https://gameanalytics.com/terms/
   contact:
@@ -25,7 +25,7 @@ paths:
       operationId: queryMetric
       tags:
       - Metrics
-      summary: Query an aggregated gameplay metric.
+      summary: Query an aggregated gameplay metric
       description: Returns aggregated metric data (for example `dau`, `mau`, `retention_retro`, `arpu`, `arppu`, `session_length`, `revenue`, `ad_revenue`) as JSON. Authenticated with the `X-API-Key` header. The body specifies an ISO-8601 `interval`, a `granularity`, an optional `game` id, and a `query` object of type `group`, `split`, or `timeseries`.
       servers:
       - url: https://metrics.gameanalytics.com

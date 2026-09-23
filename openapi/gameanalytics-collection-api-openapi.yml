@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: GameAnalytics REST APIs Collection API
+  title: GameAnalytics REST Collection API
   description: 'Representative OpenAPI description of the public GameAnalytics REST surfaces: the Collection (Collector) API for HMAC-signed event ingestion, the Metrics API for aggregated reporting, and the Organization API for programmatic administration of games, studios, users, and permissions. Endpoints and authentication reflect the public GameAnalytics documentation; consult the docs for the full request/response payloads, which are large and evolving.'
   termsOfService: https://gameanalytics.com/terms/
   contact:
@@ -25,7 +25,7 @@ paths:
       operationId: collectionInit
       tags:
       - Collection
-      summary: Initialize an SDK/collection session.
+      summary: Initialize an SDK/collection session
       description: Returns a server timestamp and an `enabled` flag before events are sent. The request body must be signed with an HMAC-SHA256 digest of the raw (optionally gzipped) body using the game secret key, base64-encoded, and supplied in the `Authorization` header. HTTPS is required.
       security:
       - hmacAuth: []
@@ -54,7 +54,7 @@ paths:
       operationId: collectionEvents
       tags:
       - Collection
-      summary: Submit a batch of game events.
+      summary: Submit a batch of game events
       description: Accepts a JSON array of event objects (categories include `user`, `session_end`, `business`, `resource`, `progression`, `design`, `error`, and `ads`). The gzipped body must be signed with an HMAC-SHA256 digest using the game secret key (base64) in the `Authorization` header. POST size limit is 1 MB; gzip is strongly recommended.
       security:
       - hmacAuth: []
@@ -79,31 +79,7 @@ paths:
         '413':
           description: Payload exceeds the 1 MB POST size limit.
 components:
-  parameters:
-    ContentEncoding:
-      name: Content-Encoding
-      in: header
-      required: false
-      description: Set to `gzip` when the body is gzip-compressed (strongly recommended).
-      schema:
-        type: string
-        enum:
-        - gzip
-    GameKey:
-      name: game_key
-      in: path
-      required: true
-      description: The public game key identifying the game in GameAnalytics.
-      schema:
-        type: string
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
     InitResponse:
       type: object
       properties:
@@ -114,18 +90,13 @@ components:
           type: integer
           format: int64
           description: Server-side Unix timestamp used to correct client clocks.
-    InitRequest:
+    Error:
       type: object
       properties:
-        platform:
+        code:
           type: string
-          example: ios
-        os_version:
+        message:
           type: string
-          example: ios 17.0
-        sdk_version:
-          type: string
-          example: rest api v2
     Event:
       type: object
       description: A single GameAnalytics event. The `category` field determines which additional fields are required. See the Collection API docs for the full set of fields per category.
@@ -180,15 +151,44 @@ components:
         value:
           type: number
           description: For design events, an optional numeric value.
+    InitRequest:
+      type: object
+      properties:
+        platform:
+          type: string
+          example: ios
+        os_version:
+          type: string
+          example: ios 17.0
+        sdk_version:
+          type: string
+          example: rest api v2
+  parameters:
+    GameKey:
+      name: game_key
+      in: path
+      required: true
+      description: The public game key identifying the game in GameAnalytics.
+      schema:
+        type: string
+    ContentEncoding:
+      name: Content-Encoding
+      in: header
+      required: false
+      description: Set to `gzip` when the body is gzip-compressed (strongly recommended).
+      schema:
+        type: string
+        enum:
+        - gzip
   responses:
-    Unauthorized:
-      description: Missing or invalid authentication (bad HMAC signature or API key).
+    BadRequest:
+      description: The request was malformed or failed validation.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request was malformed or failed validation.
+    Unauthorized:
+      description: Missing or invalid authentication (bad HMAC signature or API key).
       content:
         application/json:
           schema:
