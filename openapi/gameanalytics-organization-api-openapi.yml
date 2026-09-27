@@ -215,31 +215,6 @@ paths:
           description: Permissions updated.
 components:
   schemas:
-    Game:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        studio_id:
-          type: integer
-        platform:
-          type: string
-        game_key:
-          type: string
-        secret_key:
-          type: string
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-        email:
-          type: string
-          format: email
-        name:
-          type: string
     Error:
       type: object
       properties:
@@ -287,12 +262,37 @@ components:
                 - admin
                 - member
                 - viewer
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        name:
+          type: string
     Studio:
       type: object
       properties:
         id:
           type: integer
         name:
+          type: string
+    Game:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        studio_id:
+          type: integer
+        platform:
+          type: string
+        game_key:
+          type: string
+        secret_key:
           type: string
   responses:
     Unauthorized:
