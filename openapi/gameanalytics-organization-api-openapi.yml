@@ -215,12 +215,12 @@ paths:
           description: Permissions updated.
 components:
   schemas:
-    Error:
+    Studio:
       type: object
       properties:
-        code:
-          type: string
-        message:
+        id:
+          type: integer
+        name:
           type: string
     UserInvite:
       type: object
@@ -232,6 +232,38 @@ components:
           format: email
         acl:
           $ref: '#/components/schemas/Acl'
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    Game:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        studio_id:
+          type: integer
+        platform:
+          type: string
+        game_key:
+          type: string
+        secret_key:
+          type: string
     Acl:
       type: object
       description: Access control list mapping games/studios to permission roles.
@@ -262,38 +294,6 @@ components:
                 - admin
                 - member
                 - viewer
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-    Studio:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-    Game:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        studio_id:
-          type: integer
-        platform:
-          type: string
-        game_key:
-          type: string
-        secret_key:
-          type: string
   responses:
     Unauthorized:
       description: Missing or invalid authentication (bad HMAC signature or API key).

@@ -80,25 +80,16 @@ paths:
           description: Payload exceeds the 1 MB POST size limit.
 components:
   schemas:
-    Error:
+    InitResponse:
       type: object
       properties:
-        code:
-          type: string
-        message:
-          type: string
-    InitRequest:
-      type: object
-      properties:
-        platform:
-          type: string
-          example: ios
-        os_version:
-          type: string
-          example: ios 17.0
-        sdk_version:
-          type: string
-          example: rest api v2
+        enabled:
+          type: boolean
+          description: Whether event collection is enabled for this game.
+        server_ts:
+          type: integer
+          format: int64
+          description: Server-side Unix timestamp used to correct client clocks.
     Event:
       type: object
       description: A single GameAnalytics event. The `category` field determines which additional fields are required. See the Collection API docs for the full set of fields per category.
@@ -153,30 +144,33 @@ components:
         value:
           type: number
           description: For design events, an optional numeric value.
-    InitResponse:
+    Error:
       type: object
       properties:
-        enabled:
-          type: boolean
-          description: Whether event collection is enabled for this game.
-        server_ts:
-          type: integer
-          format: int64
-          description: Server-side Unix timestamp used to correct client clocks.
-  responses:
-    BadRequest:
-      description: The request was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid authentication (bad HMAC signature or API key).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+        code:
+          type: string
+        message:
+          type: string
+    InitRequest:
+      type: object
+      properties:
+        platform:
+          type: string
+          example: ios
+        os_version:
+          type: string
+          example: ios 17.0
+        sdk_version:
+          type: string
+          example: rest api v2
   parameters:
+    GameKey:
+      name: game_key
+      in: path
+      required: true
+      description: The public game key identifying the game in GameAnalytics.
+      schema:
+        type: string
     ContentEncoding:
       name: Content-Encoding
       in: header
@@ -186,13 +180,19 @@ components:
         type: string
         enum:
         - gzip
-    GameKey:
-      name: game_key
-      in: path
-      required: true
-      description: The public game key identifying the game in GameAnalytics.
-      schema:
-        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid authentication (bad HMAC signature or API key).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     hmacAuth:
       type: apiKey
