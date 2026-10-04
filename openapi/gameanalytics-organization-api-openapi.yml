@@ -215,40 +215,6 @@ paths:
           description: Permissions updated.
 components:
   schemas:
-    Studio:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-    UserInvite:
-      type: object
-      required:
-      - email
-      properties:
-        email:
-          type: string
-          format: email
-        acl:
-          $ref: '#/components/schemas/Acl'
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
     Game:
       type: object
       properties:
@@ -264,6 +230,40 @@ components:
           type: string
         secret_key:
           type: string
+    Studio:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+    UserInvite:
+      type: object
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          format: email
+        acl:
+          $ref: '#/components/schemas/Acl'
     Acl:
       type: object
       description: Access control list mapping games/studios to permission roles.

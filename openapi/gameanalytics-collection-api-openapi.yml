@@ -79,17 +79,24 @@ paths:
         '413':
           description: Payload exceeds the 1 MB POST size limit.
 components:
+  parameters:
+    ContentEncoding:
+      name: Content-Encoding
+      in: header
+      required: false
+      description: Set to `gzip` when the body is gzip-compressed (strongly recommended).
+      schema:
+        type: string
+        enum:
+        - gzip
+    GameKey:
+      name: game_key
+      in: path
+      required: true
+      description: The public game key identifying the game in GameAnalytics.
+      schema:
+        type: string
   schemas:
-    InitResponse:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: Whether event collection is enabled for this game.
-        server_ts:
-          type: integer
-          format: int64
-          description: Server-side Unix timestamp used to correct client clocks.
     Event:
       type: object
       description: A single GameAnalytics event. The `category` field determines which additional fields are required. See the Collection API docs for the full set of fields per category.
@@ -163,23 +170,16 @@ components:
         sdk_version:
           type: string
           example: rest api v2
-  parameters:
-    GameKey:
-      name: game_key
-      in: path
-      required: true
-      description: The public game key identifying the game in GameAnalytics.
-      schema:
-        type: string
-    ContentEncoding:
-      name: Content-Encoding
-      in: header
-      required: false
-      description: Set to `gzip` when the body is gzip-compressed (strongly recommended).
-      schema:
-        type: string
-        enum:
-        - gzip
+    InitResponse:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Whether event collection is enabled for this game.
+        server_ts:
+          type: integer
+          format: int64
+          description: Server-side Unix timestamp used to correct client clocks.
   responses:
     Unauthorized:
       description: Missing or invalid authentication (bad HMAC signature or API key).
