@@ -97,6 +97,16 @@ components:
       schema:
         type: string
   schemas:
+    InitResponse:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Whether event collection is enabled for this game.
+        server_ts:
+          type: integer
+          format: int64
+          description: Server-side Unix timestamp used to correct client clocks.
     Event:
       type: object
       description: A single GameAnalytics event. The `category` field determines which additional fields are required. See the Collection API docs for the full set of fields per category.
@@ -170,16 +180,6 @@ components:
         sdk_version:
           type: string
           example: rest api v2
-    InitResponse:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: Whether event collection is enabled for this game.
-        server_ts:
-          type: integer
-          format: int64
-          description: Server-side Unix timestamp used to correct client clocks.
   responses:
     Unauthorized:
       description: Missing or invalid authentication (bad HMAC signature or API key).

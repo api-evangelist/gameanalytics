@@ -55,6 +55,18 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    MetricsResult:
+      type: object
+      properties:
+        interval:
+          type: string
+        granularity:
+          type: string
+        results:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
     Error:
       type: object
       properties:
@@ -106,18 +118,6 @@ components:
                 type: string
             limit:
               type: integer
-    MetricsResult:
-      type: object
-      properties:
-        interval:
-          type: string
-        granularity:
-          type: string
-        results:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
   responses:
     Unauthorized:
       description: Missing or invalid authentication (bad HMAC signature or API key).
